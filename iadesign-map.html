@@ -19,6 +19,37 @@
       bottom: 0;
       width: 100%;
     }
+
+    #fly {
+      display: block;
+      position: relative;
+      margin: 0px auto;
+      width: 10%;
+      height: 40px;
+      padding: 10px;
+      border: none;
+      border-radius: 3px;
+      font-size: 12px;
+      text-align: center;
+      color: #fff;
+      background: #acacac;
+    }
+
+    @media only screen and (max-width: 600px) {
+      #fly {
+        display: block;
+        position: relative;
+        margin: 10px auto;
+        width: 30%;
+        height: 50px;
+        padding: 20px;
+        border: none;
+        border-radius: 3px;
+        font-size: 12px;
+        text-align: center;
+        color: #fff;
+        background: #acacac;
+      }
   </style>
 </head>
 
@@ -160,26 +191,33 @@
         map.getCanvas().style.cursor = '';
       });
     });
-  </script>
 
-  <script>
-    mapboxgl.accessToken = 'pk.eyJ1IjoicG93ZXJiaXBybzEiLCJhIjoiY2p4d3NqdjlxMGo3aDNtczUwcXppZmI0NiJ9.y1TQSJbi5ckc3U9kYdYkcw';
-    var map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/mapbox/streets-v11',
-      center: [-74.50, 40],
-      zoom: 9
-    });
+
+    // This variable will track your current coordinate array's index.
+    var idx = 0;
+
+    var arrayOfCoordinates = [
+      [151.208986, -33.862533],
+      [144.960083, -37.814960],
+      [138.599690, -34.921768],
+      [153.027910, -27.466576],
+      [149.128352, -35.277482],
+      [115.852301, -31.954387],
+      [103.85049, 1.28178]
+    ];
 
     document.getElementById('fly').addEventListener('click', function() {
-      // Fly to a random location by offsetting the point -74.50, 40
-      // by up to 5 degrees.
+      // Back to the first coordinate.
+      if (idx >= arrayOfCoordinates.length) {
+        idx = 0;
+      }
+
       map.flyTo({
-        center: [
-          -74.50 + (Math.random() - 0.5) * 10,
-          40 + (Math.random() - 0.5) * 10
-        ]
+        center: arrayOfCoordinates[idx],
+        zoom: 12
       });
+
+      idx++;
     });
   </script>
 
