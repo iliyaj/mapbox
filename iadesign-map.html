@@ -31,6 +31,8 @@
     }
   </style>
   <div id='map'></div>
+  <br />
+  <button id='fly'>Fly</button>
   <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoicG93ZXJiaXBybzEiLCJhIjoiY2p4d3NqdjlxMGo3aDNtczUwcXppZmI0NiJ9.y1TQSJbi5ckc3U9kYdYkcw';
 
@@ -156,6 +158,27 @@
       // Change it back to a pointer when it leaves.
       map.on('mouseleave', 'places', function() {
         map.getCanvas().style.cursor = '';
+      });
+    });
+  </script>
+
+  <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoicG93ZXJiaXBybzEiLCJhIjoiY2p4d3NqdjlxMGo3aDNtczUwcXppZmI0NiJ9.y1TQSJbi5ckc3U9kYdYkcw';
+    var map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v11',
+      center: [-74.50, 40],
+      zoom: 9
+    });
+
+    document.getElementById('fly').addEventListener('click', function() {
+      // Fly to a random location by offsetting the point -74.50, 40
+      // by up to 5 degrees.
+      map.flyTo({
+        center: [
+          -74.50 + (Math.random() - 0.5) * 10,
+          40 + (Math.random() - 0.5) * 10
+        ]
       });
     });
   </script>
